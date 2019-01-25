@@ -1,7 +1,34 @@
 var React = require('react');
+var PropTypes = require('prop-types');
+
+function SelectLanguage (props) {
+  var languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];
+
+  return (
+    <ul className='languages'>
+      {languages.map((lang) => {
+        //  Need to bind the specific list item to the onClick handler
+        // -> We can also use .bind() in this case
+        // -> We already know what the 'this' keyword refers to but we can pass in a second argument which is the function argument
+        return (
+          <li
+            style={lang === props.selectedLanguage ? { color: '#d0021b' } : null}
+            onClick={props.onSelect.bind(null, lang)}
+            key={lang}>
+            {lang}
+          </li>
+        )
+      })}
+    </ul>
+  )
+}
+
+SelectLanguage.propTypes = {
+  selectedLanguage: PropTypes.string.isRequired,
+  onSelect: PropTypes.func.isRequired
+};
 
 // Want state to keep track of which tab is active
-
 class Popular extends React.Component {
   constructor(props) {
     super(props);
@@ -27,25 +54,16 @@ class Popular extends React.Component {
   }
 
   render() {
-    var languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];
     return (
-      <ul className='languages'>
-        { languages.map((lang) => {
-          //  Need to bind the specific list item to the onClick handler
-          // -> We can also use .bind() in this case
-          // -> We already know what the 'this' keyword refers to but we can pass in a second argument which is the function argument
-          return (
-            <li
-              style = { lang === this.state.selectedLanguage ? { color: '#d0021b'} : null } 
-              onClick={ this.updateLanguage.bind(null, lang) }
-              key={ lang }>
-              { lang }
-            </li>
-          )
-        })}
-      </ul>
+      <div>
+        <SelectLanguage
+          selectedLanguage={this.state.selectedLanguage}
+          onSelect={this.updateLanguage} />
+      </div>
     )
   }
 }
+
+
 
 module.exports = Popular
