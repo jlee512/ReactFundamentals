@@ -19,6 +19,11 @@ li {
   list-style-type: none;
 }
 
+a {
+  text-decoration: none;
+  color: #d0021b;
+}
+
 /* Displays as a row and centers the content */
 .languages {
   display: flex;
@@ -29,4 +34,73 @@ li {
   margin: 10px;
   font-weight: bold;
   cursor: pointer;
+}
+
+.popular-list {
+  display: flex;
+  /* Creates grid effect */
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.popular-item {
+  margin: 20px;
+  text-align: center;
+}
+
+.popular-rank {
+  font-size: 20px;
+  margin: 10px;
+}
+
+.space-list-item {
+  margin-bottom: 7px;
+}
+
+.avatar {
+  width: 150px;
+  border-radius: 50%;
+}
+
+.nav {
+  display: flex;
+
+}
+
+.active {
+  font-weight: bold;
+}
+
+.nav li {
+  margin-right: 15px;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button {
+  color: #e6e6e6;
+  background: #0a0a0a;
+  border: none;
+  font-size: 16px;
+  border-radius: 3px;
+  width: 200px;
+  text-align: center;
+  display: block;
+  padding: 7px 0;
+  margin: 10px auto;
+}
+
+.button:hover:enabled {
+  background: 
+    linear-gradient(#1a1a1a, #0a0a0a);
+    color: #fff;
+    text-decoration: none;
+}
+
+.button:active {
+  transform: translateY(1px);
 }
