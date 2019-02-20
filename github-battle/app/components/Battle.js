@@ -3,35 +3,8 @@ var PropTypes = require('prop-types');
 // Allows us to link to another route
 var Link = require('react-router-dom').Link;
 
-// Stateless functional component
-function PlayerPreview(props) {
-  return (
-    <div>
-      <div className='column'>
-        <img
-          className='avatar'
-          src={props.avatar}
-          alt={'Avatar for: ' + props.username}
-    />
-          <h2 className='username'>@{props.username}</h2>
-      </div>
-      <button
-        className='reset'
-        // Need to bind to return a brand-new function (don't mind about context, but care about passing extra argument which will be the user's id)
-        onClick={props.onReset.bind(null, props.id)}>
-        RESET
-      </button>
-    </div>
-  )
-}
-
-PlayerPreview.propTypes = {
-  avatar: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  // Used to reset the state of the parent component
-  onReset: PropTypes.func.isRequired
-}
+// Extracted PlayerPreview Stateless Functional Component
+var PlayerPreview = require('./PlayerPreview');
 
 // Child component is unique to this component, therefore it is sometimes suitable to include in this file
 class PlayerInput extends React.Component {
@@ -153,9 +126,13 @@ class Battle extends React.Component {
           {playerOneImage !== null &&
             <PlayerPreview
               avatar={playerOneImage}
-              username={playerOneName}
-              onReset={this.handleReset}
-              id='playerOne' />}
+              username={playerOneName}>
+              <button className='reset'
+                // Need to bind to return a brand-new function (don't mind about context, but care about passing extra argument which will be the user's id)
+                onClick={this.handleReset.bind(null, 'playerOne')}>
+                RESET
+              </button>
+            </PlayerPreview>}
 
           {!playerTwoName &&
             <PlayerInput
@@ -166,20 +143,24 @@ class Battle extends React.Component {
           {playerTwoImage !== null &&
             <PlayerPreview
               avatar={playerTwoImage}
-              username={playerTwoName}
-              onReset={this.handleReset}
-              id='playerTwo' />}
+              username={playerTwoName}>
+              <button className='reset'
+                // Need to bind to return a brand-new function (don't mind about context, but care about passing extra argument which will be the user's id)
+                onClick={this.handleReset.bind(null, 'playerTwo')}>
+                RESET
+              </button>
+            </PlayerPreview>}
 
         </div>
         {playerOneImage && playerTwoImage &&
-          <Link 
+          <Link
             className='button'
             to={{
               pathname: match.url + '/results',
-              search: '?playerOneName=' + playerOneName + 
-                      '&playerTwoName=' + playerTwoName
+              search: '?playerOneName=' + playerOneName +
+                '&playerTwoName=' + playerTwoName
             }}>
-              Battle
+            Battle
           </Link>}
       </div>
     )
